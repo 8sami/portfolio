@@ -13,6 +13,7 @@ const routes = {
 
 const display = {
   location: true,
+  current_location: true,
   time: true,
   themeSwitcher: true
 };
