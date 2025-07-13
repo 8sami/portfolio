@@ -191,8 +191,15 @@ const about = {
 const blog = {
   path: "/blog",
   label: "Blog",
-  title: "Writing about code, automation, and learning...",
+  title: "Writing about life, learnings, and lessons ✍️",
   description: `Read what ${person.name} has been up to recently`,
+};
+
+const guestbook = {
+  path: "/guestbook",
+  label: "Guestbook",
+  title: `How was you stay here? Leave a comment👇`,
+  description: `Say hi👋 to fellow passersby`,
 };
 
 const work = {
@@ -251,4 +258,4 @@ const gallery = {
   ],
 };
 
-export { person, social, newsletter, home, about, blog, work, gallery };
+export { person, social, newsletter, home, about, blog, guestbook, work, gallery };
