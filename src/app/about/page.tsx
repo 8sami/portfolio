@@ -105,7 +105,7 @@ export default function About() {
             )}
           </Column>
         )}
-        <Column className={styles.blockAlign} flex={9} maxWidth={40}>
+        <Column className={styles.blockAlign} flex={9} maxWidth='s'>
           <Column
             id={about.intro.title}
             fillWidth

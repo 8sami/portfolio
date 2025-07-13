@@ -198,8 +198,8 @@ const blog = {
 const guestbook = {
   path: "/guestbook",
   label: "Guestbook",
-  title: `How was you stay here? Leave a comment👇`,
-  description: `Say hi👋 to fellow passersby`,
+  title: `Say hi👋 to fellow passersby`,
+  description: `How was you stay here? Leave a comment👇`,
 };
 
 const work = {

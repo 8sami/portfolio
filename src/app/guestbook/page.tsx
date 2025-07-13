@@ -1,6 +1,6 @@
 import { Meta } from "@once-ui-system/core";
 import { baseURL, guestbook } from "@/resources";
-import { GuestbookContent } from "@/components/GuestbookContent";
+import { GuestbookContent } from "@/components/guestbook/GuestbookContent";
 
 export async function generateMetadata() {
   return Meta.generate({
