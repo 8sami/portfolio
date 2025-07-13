@@ -86,7 +86,6 @@ export default async function Project({
       )}
       <Column style={{ margin: "auto" }} as="article" maxWidth="xs">
         <Flex gap="12" marginBottom="24" vertical="center">
-          {post.metadata.team && <AvatarGroup reverse avatars={avatars} size="m" />}
           <Text variant="body-default-s" onBackground="neutral-weak">
             {post.metadata.publishedAt && formatDate(post.metadata.publishedAt)}
           </Text>

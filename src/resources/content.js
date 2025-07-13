@@ -1,46 +1,40 @@
-import { Logo } from "@once-ui-system/core";
+import ThemeLogo from "@/components/ThemeLogo";
 
 const person = {
-  firstName: "Selene",
-  lastName: "Yu",
+  firstName: "Sami",
+  middleName: "ullah",
+  lastName: "Javed",
   get name() {
-    return `${this.firstName} ${this.lastName}`;
+    return `${this.firstName}${this.middleName} ${this.lastName}`;
   },
-  role: "Design Engineer",
+  role: "Software Developer",
   avatar: "/images/avatar.jpg",
-  email: "example@gmail.com",
-  location: "Asia/Jakarta", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: ["English", "Bahasa"], // optional: Leave the array empty if you don't want to display languages
+  email: "samikhan15262822@gmail.com",
+  current_location: "Sukkur, Pakistan",
+  location: "Asia/Karachi",
+  languages: ["English", "Urdu"],
 };
 
 const newsletter = {
   display: true,
-  title: <>Subscribe to {person.firstName}'s Newsletter</>,
+  title: <>Stay in the Loop with {person.firstName}'s Insights</>,
   description: (
     <>
-      I occasionally write about design, technology, and share thoughts on the intersection of
-      creativity and engineering.
+      Get the latest on software, automation, and creative coding. I share hands-on tips, project stories, and the occasional deep dive into tech and productivity.
     </>
   ),
 };
 
 const social = [
-  // Links are automatically displayed.
-  // Import new icons in /once-ui/icons.ts
   {
     name: "GitHub",
     icon: "github",
-    link: "https://github.com/once-ui-system/nextjs-starter",
+    link: "https://github.com/sam1-khan",
   },
   {
     name: "LinkedIn",
     icon: "linkedin",
-    link: "https://www.linkedin.com/company/once-ui/",
-  },
-  {
-    name: "Threads",
-    icon: "threads",
-    link: "https://www.threads.com/@once_ui",
+    link: "https://www.linkedin.com/in/sam1-khan",
   },
   {
     name: "Email",
@@ -54,18 +48,17 @@ const home = {
   image: "/images/og/home.jpg",
   label: "Home",
   title: `${person.name}'s Portfolio`,
-  description: `Portfolio website showcasing my work as a ${person.role}`,
-  headline: <>Building bridges between design and code</>,
+  description: `Showcasing my journey as a ${person.role}`,
+  headline: <>Making lives easier by solving problems</>,
   featured: {
     display: true,
-    title: <>Recent project: <strong className="ml-4">Once UI</strong></>,
-    href: "/work/building-once-ui-a-customizable-design-system",
+    title: <>Let's connect!</>,
+    href: "https://www.linkedin.com/in/sam1-khan", // Update with actual project link if available
   },
   subline: (
     <>
-      I'm Selene, a design engineer at <Logo icon="/trademarks/wordmark-dark.svg" style={{ display: "inline-flex", top: "0.25em", marginLeft: "-0.25em" }}/>, where I craft intuitive
-      <br /> user experiences. After hours, I build my own projects.
-    </>
+      Assalamualaikum👋, I'm Sami, a software developer at <ThemeLogo/>. I love making products that solve actual problems.
+    </>   
   ),
 };
 
@@ -73,13 +66,13 @@ const about = {
   path: "/about",
   label: "About",
   title: `About – ${person.name}`,
-  description: `Meet ${person.name}, ${person.role} from ${person.location}`,
+  description: `Meet ${person.name}, ${person.role} from ${person.current_location}`,
   tableOfContent: {
     display: true,
     subItems: false,
   },
   avatar: {
-    display: true,
+    display: false,
   },
   calendar: {
     display: true,
@@ -90,107 +83,106 @@ const about = {
     title: "Introduction",
     description: (
       <>
-        Selene is a Jakarta-based design engineer with a passion for transforming complex challenges
-        into simple, elegant design solutions. Her work spans digital interfaces, interactive
-        experiences, and the convergence of design and technology.
+        Young, ambitious, and always curious. I'm a computer science student and software developer with a knack for both front-end and back-end. I love building products that make life easier, whether it's automating workflows or crafting seamless user experiences. I believe in learning by doing.
       </>
     ),
   },
   work: {
-    display: true, // set to false to hide this section
+    display: true,
     title: "Work Experience",
     experiences: [
       {
-        company: "FLY",
-        timeframe: "2022 - Present",
-        role: "Senior Design Engineer",
+        company: "Devkind",
+        timeframe: "Jul. 2025 - Present",
+        role: "Software Developer",
         achievements: [
-          <>
-            Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user
-            engagement and 30% faster load times.
-          </>,
-          <>
-            Spearheaded the integration of AI tools into design workflows, enabling designers to
-            iterate 50% faster.
-          </>,
+          <>Maintaining and implementing new features in existing projects.</>,
+          <>Developing full-stack web applications for clients with the help of AI.</>,
         ],
-        images: [
-          // optional: leave the array empty if you don't want to display images
-          {
-            src: "/images/projects/project-01/cover-01.jpg",
-            alt: "Once UI Project",
-            width: 16,
-            height: 9,
-          },
-        ],
+        images: [],
       },
       {
-        company: "Creativ3",
-        timeframe: "2018 - 2022",
-        role: "Lead Designer",
+        company: "Devkind",
+        timeframe: "Mar. 2025 - Jun. 2025",
+        role: "Developer Intern",
         achievements: [
-          <>
-            Developed a design system that unified the brand across multiple platforms, improving
-            design consistency by 40%.
-          </>,
-          <>
-            Led a cross-functional team to launch a new product line, contributing to a 15% increase
-            in overall company revenue.
-          </>,
+          <>Contributed to projects from requirements gathering to deployment.</>,
+          <>Developed and maintained full-stack applications using Next.js, React, Refine, Supabase, and Strapi CMS.</>,
+          <>Built n8n automation workflows for data extraction, processing, and business operations.</>,
+          <>Implemented e-commerce features including Stripe integration, authentication, and checkout flows.</>,
+          <>Successfully delivered multiple projects independently under supervision.</>,
+        ],
+        images: [],
+      },
+      {
+        company: "Samiullah Arif Enterprises (SAE)",
+        timeframe: "Nov. 2024 - Present",
+        role: "Freelance Developer",
+        achievements: [
+          <>Developing a full-stack invoice generator web app for a procurement service provider, streamlining their billing process.</>,
+          <>Built the backend using Django and Django Ninja for REST API endpoints, ensuring scalability and maintainability.</>,
+          <>Designing the frontend with Next.js, TypeScript, and Shadcn UI for a responsive, user-friendly interface.</>,
         ],
         images: [],
       },
     ],
   },
   studies: {
-    display: true, // set to false to hide this section
-    title: "Studies",
+    display: true,
+    title: "Education",
     institutions: [
       {
-        name: "University of Jakarta",
-        description: <>Studied software engineering.</>,
+        name: "Islamia Government Science College Sukkur",
+        description: <>Intermediate in Computer Science (Aug. 2024 - Present)</>,
       },
       {
-        name: "Build the Future",
-        description: <>Studied online marketing and personal branding.</>,
+        name: "APWA Excellent World School Sukkur",
+        description: <>
+          Primary & High School (Apr. 2014 - Aug. 2024)
+          <br/>1st position in Annual Examination 2022
+          <br/>2nd position in Annual Examination 2020-21
+        </>,
       },
     ],
   },
   technical: {
-    display: true, // set to false to hide this section
-    title: "Technical skills",
+    display: true,
+    title: "Technical Skills & Certifications",
     skills: [
       {
-        title: "Figma",
-        description: <>Able to prototype in Figma with Once UI with unnatural speed.</>,
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-02.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-          {
-            src: "/images/projects/project-01/cover-03.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
+        title: "Next.js & React",
+        description: <>Building modern web apps with Next.js, React, Supabase, and Strapi CMS.</>,
+        images: [],
       },
       {
-        title: "Next.js",
-        description: <>Building next gen apps with Next.js + Once UI + Supabase.</>,
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-04.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
+        title: "Automation & n8n",
+        description: <>Workflow automation, data extraction, and business process automation using n8n.</>,
+        images: [],
+      },
+      {
+        title: "Python 3 Programming",
+        description: <>Specialization in Python programming (University of Michigan, Aug. 2024)</>,
+        images: [],
+      },
+      {
+        title: "Django for Everybody",
+        description: <>Web application development with Django (University of Michigan, Oct. 2024)</>,
+        images: [],
+      },
+      {
+        title: "SQL for Data Science",
+        description: <>SQL fundamentals and data science applications (UC Davis, Mar. 2025)</>,
+        images: [],
+      },
+      {
+        title: "Version Control with Git",
+        description: <>Git fundamentals and best practices (Atlassian, Aug. 2024)</>,
+        images: [],
+      },
+      {
+        title: "CS50x",
+        description: <>CS fundamentals and programming (Harvard University, Jun. 2024)</>,
+        images: [],
       },
     ],
   },
@@ -199,19 +191,22 @@ const about = {
 const blog = {
   path: "/blog",
   label: "Blog",
-  title: "Writing about design and tech...",
+  title: "Writing about life, learnings, and lessons ✍️",
   description: `Read what ${person.name} has been up to recently`,
-  // Create new blog posts by adding a new .mdx file to app/blog/posts
-  // All posts will be listed on the /blog route
+};
+
+const guestbook = {
+  path: "/guestbook",
+  label: "Guestbook",
+  title: `How was you stay here? Leave a comment👇`,
+  description: `Say hi👋 to fellow passersby`,
 };
 
 const work = {
   path: "/work",
   label: "Work",
   title: `Projects – ${person.name}`,
-  description: `Design and dev projects by ${person.name}`,
-  // Create new project pages by adding a new .mdx file to app/blog/posts
-  // All projects will be listed on the /home and /work routes
+  description: `A showcase of software, automation, and web projects by ${person.name}`,
 };
 
 const gallery = {
@@ -219,8 +214,6 @@ const gallery = {
   label: "Gallery",
   title: `Photo gallery – ${person.name}`,
   description: `A photo collection by ${person.name}`,
-  // Images by https://lorant.one
-  // These are placeholder images, replace with your own
   images: [
     {
       src: "/images/gallery/horizontal-1.jpg",
@@ -265,4 +258,4 @@ const gallery = {
   ],
 };
 
-export { person, social, newsletter, home, about, blog, work, gallery };
+export { person, social, newsletter, home, about, blog, guestbook, work, gallery };

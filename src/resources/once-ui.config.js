@@ -8,11 +8,13 @@ const routes = {
   "/about": true,
   "/work": true,
   "/blog": true,
-  "/gallery": true,
+  "/guestbook": true,
+  "/gallery": false,
 };
 
 const display = {
   location: true,
+  current_location: true,
   time: true,
   themeSwitcher: true
 };
