@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Flex, Textarea, Button } from "@once-ui-system/core";
+import { Button, Input } from "@once-ui-system/core";
 
 interface CommentFormProps {
   onSubmit: (content: string) => Promise<void>;
@@ -29,30 +29,24 @@ export const CommentForm: React.FC<CommentFormProps> = ({ onSubmit, isLoading = 
 
   return (
     <form onSubmit={handleSubmit}>
-      <Flex position="relative" fillWidth>
-        <Textarea
-          id="comment-content"
-          placeholder="Share your thoughts..."
-          value={content}
-          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)}
-          lines={1}
-          disabled={isSubmitting || isLoading}
-          style={{ width: "100%" }}
-        />
-        <Button
-          type="submit"
-          disabled={!content.trim() || isSubmitting || isLoading}
-          loading={isSubmitting}
-          size="s"
-          style={{
-            position: "absolute",
-            right: "16px",
-            bottom: "8px",
-          }}
-        >
-          Post
-        </Button>
-      </Flex>
+      <Input
+        id="comment-content"
+        placeholder="Share your thoughts..."
+        value={content}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => setContent(event.target.value)}
+        disabled={isSubmitting || isLoading}
+        hasSuffix={
+          <Button
+            type="submit"
+            disabled={!content.trim() || isSubmitting || isLoading}
+            loading={isSubmitting}
+            size="s"
+            variant="primary"
+          >
+            Post
+          </Button>
+        }
+      />
     </form>
   );
 }; 
