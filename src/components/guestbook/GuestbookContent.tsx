@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Flex, Heading, Schema, Column, Button, Text, Icon, Dialog } from "@once-ui-system/core";
+import { Flex, Heading, Schema, Column, Button, Text, Icon, Dialog, Spinner } from "@once-ui-system/core";
 import { baseURL, guestbook, person } from "@/resources";
 import { CommentForm } from "@/components/CommentForm";
 import { CommentList } from "@/components/CommentList";
 import { supabase } from "@/lib/supabase";
+import useSWR from 'swr';
+import { SWRResponse } from 'swr';
 
 interface Comment {
   id: string;
@@ -19,12 +21,22 @@ interface Comment {
   } | null;
 }
 
-export const GuestbookContent: React.FC = () => {
+interface GuestbookContentProps {
+  initialComments?: Comment[];
+}
+
+const fetcher = (url: string) => fetch(url).then(res => res.json());
+
+export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComments = [] }) => {
   const [user, setUser] = useState<any>(null);
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [showSignInModal, setShowSignInModal] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
+
+  const { data: comments = [], isLoading, mutate } = useSWR<Comment[]>(
+    '/api/comments',
+    fetcher,
+    { fallbackData: initialComments }
+  );
 
   // Handle authentication state
   useEffect(() => {
@@ -55,22 +67,7 @@ export const GuestbookContent: React.FC = () => {
     return () => subscription.unsubscribe();
   }, []);
 
-  // Fetch comments
-  const fetchComments = async () => {
-    try {
-      const response = await fetch("/api/comments");
-      if (response.ok) {
-        const data = await response.json();
-        setComments(data);
-      }
-    } catch (error) {
-      console.error("Error fetching comments:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // Handle comment submission
+  // Update handleSubmitComment to use mutate
   const handleSubmitComment = async (content: string) => {
     if (!user) {
       localStorage.setItem('pendingComment', content);
@@ -95,7 +92,8 @@ export const GuestbookContent: React.FC = () => {
 
       if (response.ok) {
         const newComment = await response.json();
-        setComments([newComment, ...comments]);
+        // Optimistically update comments
+        mutate([newComment, ...comments], false);
         return newComment;
       } else {
         const errorData = await response.json();
@@ -126,11 +124,6 @@ export const GuestbookContent: React.FC = () => {
       setIsAuthenticating(false);
     }
   };
-
-  // Fetch comments on mount
-  useEffect(() => {
-    fetchComments();
-  }, []);
 
   return (
     <Column maxWidth="m" gap="xl" horizontal="center">
@@ -164,7 +157,13 @@ export const GuestbookContent: React.FC = () => {
           <Heading as="h2" variant="display-strong-xs">
             Comments
           </Heading>
-          <CommentList comments={comments} />
+          {isLoading ? (
+            <Flex fillWidth paddingY="64" horizontal="center">
+              <Spinner />
+            </Flex>
+          ) : (
+            <CommentList comments={comments} />
+          )}
         </Column>
 
         {/* Comment Form - Always visible */}

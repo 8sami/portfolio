@@ -12,6 +12,14 @@ export async function generateMetadata() {
   });
 }
 
-export default function Guestbook() {
-  return <GuestbookContent />;
+async function fetchComments() {
+  // Fetch comments from the API route on the server
+  const res = await fetch(`${baseURL}/api/comments`, { cache: "no-store" });
+  if (!res.ok) return [];
+  return res.json();
+}
+
+export default async function Guestbook() {
+  const comments = await fetchComments();
+  return <GuestbookContent initialComments={comments} />;
 }
