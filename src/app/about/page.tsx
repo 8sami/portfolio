@@ -148,20 +148,19 @@ export default function About() {
             >
               {person.role}
             </Text>
-            <Button
-              href="/images/Samiullah_Javed.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              size="s"
-              variant="secondary"
-              prefixIcon="download"
-              style={{ marginTop: 8, marginBottom: 8, alignSelf: 'start' }}
-              download
-            >
-              Download Resume
-            </Button>
             {social.length > 0 && (
-              <Flex className={styles.blockAlign} paddingTop="20" paddingBottom="8" gap="8" wrap horizontal="center" fitWidth data-border="rounded">
+              <Flex className={styles.blockAlign} paddingTop="12" paddingBottom="8" gap="8" wrap vertical="center" horizontal="center" fitWidth data-border="rounded">
+                <Button
+                  href="/images/Samiullah_Javed.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  size="s"
+                  variant="primary"
+                  prefixIcon="download"
+                  download
+                  >
+                  Download Resume
+                </Button>
                 {social.map(
                   (item) =>
                     item.link && (

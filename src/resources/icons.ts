@@ -20,6 +20,7 @@ import {
   PiGridFourDuotone,
   PiBookBookmarkDuotone,
   PiImageDuotone,
+  PiPenNibDuotone,
 } from "react-icons/pi";
 
 import { FaDiscord, FaGithub, FaLinkedin, FaX, FaThreads, FaGoogle } from "react-icons/fa6";
@@ -32,6 +33,7 @@ export const iconLibrary: Record<string, IconType> = {
   person: PiUserCircleDuotone,
   grid: PiGridFourDuotone,
   book: PiBookBookmarkDuotone,
+  pen: PiPenNibDuotone,
   openLink: HiOutlineLink,
   calendar: HiCalendarDays,
   home: PiHouseDuotone,

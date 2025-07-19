@@ -7,7 +7,6 @@ import { CommentForm } from "@/components/CommentForm";
 import { CommentList } from "@/components/CommentList";
 import { supabase } from "@/lib/supabase";
 import useSWR from 'swr';
-import { SWRResponse } from 'swr';
 
 interface Comment {
   id: string;
@@ -141,7 +140,7 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
         }}
       />
       
-      <Column fillWidth paddingY="24" gap="l" maxHeight="l">
+      <Column fillWidth paddingY="24" gap="l">
         {/* Header */}
         <Column maxWidth="s">
           <Heading variant="display-strong-l">
