@@ -8,7 +8,6 @@ import { Fade, Flex, Line, ToggleButton } from "@once-ui-system/core";
 import { routes, display, person, about, blog, guestbook, work, gallery } from "@/resources";
 import { ThemeToggle } from "./ThemeToggle";
 import styles from "./Header.module.scss";
-import { mutate } from 'swr';
 
 type TimeDisplayProps = {
   timeZone: string;
@@ -138,16 +137,12 @@ export const Header = () => {
                     href="/guestbook"
                     label={guestbook.label}
                     selected={pathname.startsWith("/guestbook")}
-                    onMouseEnter={() => mutate('/api/comments', fetch('/api/comments').then(res => res.json()))}
-                    onFocus={() => mutate('/api/comments', fetch('/api/comments').then(res => res.json()))}
                   />
                   <ToggleButton
                     className="s-flex-show"
                     prefixIcon="pen"
                     href="/guestbook"
                     selected={pathname.startsWith("/guestbook")}
-                    onMouseEnter={() => mutate('/api/comments', fetch('/api/comments').then(res => res.json()))}
-                    onFocus={() => mutate('/api/comments', fetch('/api/comments').then(res => res.json()))}
                   />
                 </>
               )}
