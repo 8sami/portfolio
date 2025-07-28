@@ -7,7 +7,7 @@ const routes = {
   "/": true,
   "/about": true,
   "/work": true,
-  "/blog": true,
+  "/blog": false,
   "/guestbook": true,
   "/gallery": false,
 };
@@ -65,7 +65,7 @@ const style = {
   theme: "system", // dark | light | system
   neutral: "slate", // sand | gray | slate | custom
   brand: "violet", // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan | custom
-  accent: "blue", // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan | custom
+  accent: "indigo", // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan | custom
   solid: "color", // color | contrast
   solidStyle: "plastic", // flat | plastic
   border: "playful", // rounded | playful | conservative
