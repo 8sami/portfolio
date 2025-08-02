@@ -2,13 +2,12 @@
 
 import React from "react";
 import { Flex, Button, Text, Avatar } from "@once-ui-system/core";
-import { createClientSupabase } from "@/lib/supabase";
+import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 
 export const SignInButtons: React.FC = () => {
   const [user, setUser] = React.useState<any>(null);
   const [loading, setLoading] = React.useState(true);
-  const supabase = createClientSupabase();
   const router = useRouter();
 
   React.useEffect(() => {

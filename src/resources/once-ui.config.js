@@ -26,32 +26,37 @@ const protectedRoutes = {
 };
 
 // Import and set font for each variant
-import { Geist } from "next/font/google";
-import { Geist_Mono } from "next/font/google";
+// import { Geist } from "next/font/google";
+// import { Geist_Mono } from "next/font/google";
 
-const heading = Geist({
-  variable: "--font-heading",
-  subsets: ["latin"],
-  display: "swap",
-});
+// const heading = Geist({
+//   variable: "--font-heading",
+//   subsets: ["latin"],
+//   display: "swap",
+// });
 
-const body = Geist({
-  variable: "--font-body",
-  subsets: ["latin"],
-  display: "swap",
-});
+// const body = Geist({
+//   variable: "--font-body",
+//   subsets: ["latin"],
+//   display: "swap",
+// });
 
-const label = Geist({
-  variable: "--font-label",
-  subsets: ["latin"],
-  display: "swap",
-});
+// const label = Geist({
+//   variable: "--font-label",
+//   subsets: ["latin"],
+//   display: "swap",
+// });
 
-const code = Geist_Mono({
-  variable: "--font-code",
-  subsets: ["latin"],
-  display: "swap",
-});
+// const code = Geist_Mono({
+//   variable: "--font-code",
+//   subsets: ["latin"],
+//   display: "swap",
+// });
+
+const heading = {}
+const body = {}
+const label = {}
+const code = {}
 
 const fonts = {
   heading: heading,
@@ -130,7 +135,7 @@ const effects = {
 };
 
 const mailchimp = {
-  action: "https://url/subscribe/post?parameters",
+  action: "https://app.us12.list-manage.com/subscribe/post?u=41cb82e5860cda9b036218e3a&amp;id=114e3d3110&amp;f_id=007151e0f0",
   effects: {
     mask: {
       cursor: true,
