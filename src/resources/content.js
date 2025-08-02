@@ -17,10 +17,10 @@ const person = {
 
 const newsletter = {
   display: true,
-  title: <>Stay in the Loop with {person.firstName}'s Insights</>,
+  title: <>Subscribe for accidental knowledge drops</>,
   description: (
     <>
-      Get the latest on software, automation, and creative coding. I share hands-on tips, project stories, and the occasional deep dive into tech and productivity.
+     I might email you someday (if it's important)
     </>
   ),
 };
@@ -58,7 +58,7 @@ const home = {
   subline: (
     <>
       Assalamualaikum👋, I'm Sami, a software developer at <ThemeLogo/>. I love making products that solve actual problems.
-    </>   
+    </>
   ),
 };
 
