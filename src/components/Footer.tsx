@@ -24,7 +24,11 @@ export const Footer = () => {
       >
         <Text variant="body-default-s" onBackground="neutral-strong">
           <Text onBackground="neutral-weak">© {currentYear} No rights reserved /</Text>
-          <Text paddingX="4">{person.name}</Text>
+          <Text paddingX="4">{person.name} /</Text>
+          <SmartLink
+            href={`https://once-ui.com/`}>
+            <Text>OnceUi</Text>
+          </SmartLink>
         </Text>
         <Flex gap="16">
           {social.map(

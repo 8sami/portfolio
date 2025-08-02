@@ -1,3 +1,4 @@
+import { GeistSans } from 'geist/font';
 import '@once-ui-system/core/css/styles.css';
 import '@once-ui-system/core/css/tokens.css';
 import '@/resources/custom.css'
@@ -29,12 +30,13 @@ export default async function RootLayout({
       as="html"
       lang="en"
       fillWidth
-      className={classNames(
-        fonts.heading.variable,
-        fonts.body.variable,
-        fonts.label.variable,
-        fonts.code.variable,
-      )}
+      // className={classNames(
+      //   fonts.heading.variable,
+      //   fonts.body.variable,
+      //   fonts.label.variable,
+      //   fonts.code.variable,
+      // )}
+      className={GeistSans.className}
     >
       <head>
         <script
