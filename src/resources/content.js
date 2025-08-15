@@ -16,7 +16,7 @@ const person = {
 };
 
 const newsletter = {
-  display: true,
+  display: false,
   title: <>Subscribe for accidental knowledge drops</>,
   description: (
     <>
@@ -75,7 +75,7 @@ const about = {
     display: false,
   },
   calendar: {
-    display: true,
+    display: false,
     link: "https://cal.com",
   },
   intro: {
