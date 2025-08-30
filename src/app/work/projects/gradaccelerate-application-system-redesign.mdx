@@ -1,58 +1,73 @@
 ---
-title: "GradAccelerate: Application System Redesign"
-slug: "gradaccelerate-application-system-redesign"
-publishedAt: "2025-06-01"  # Update with actual date
-summary: "Revamped applicant experience with a responsive form wizard and automated candidate processing system."
+title: "GradAccelerate: App Development & Website Features Addition"
+slug: "gradaccelerate-mobile-website-development"
+publishedAt: "2025-08-30"
+summary: "Designed and built a new mobile app for GradAccelerate using Expo and Supabase. The app features a daily quiz and a future job board."
 team:
   - name: "Samiullah Javed"
     role: "Software Developer"
     avatar: ""
     linkedIn: "https://www.linkedin.com/in/sam1-khan/"
-link: "https://www.gradaccelerate.com/apply"
+link: "https://www.gradaccelerate.com"
+images: ["/images/projects/gradaccelerate-mobile-website-development.png"]
 ---
 
 ## Overview
 
-Led the frontend overhaul of GradAccelerate's application portal, implementing a modern user flow and backend integrations to streamline candidate processing.
+I built GradAccelerate's new mobile app from scratch. This project also included improvements to their website. The mobile app uses **Expo and Supabase**. It focuses on daily user engagement.
 
-## Key Features
+***
 
-- **Three-Step Application Wizard**: Guided form process with progress tracking
-- **Zod Validation**: Type-safe form validation with real-time error feedback
-- **Freshworks CRM Integration**: Automated applicant data synchronization
-- **n8n Workflow Automation**: Candidate parsing and selection pipeline
-- **Mobile-First Responsive Design**: Optimized UI across all device sizes
+## Mobile App Features
+
+- **Daily Quizzes**: A core feature. Users answer daily questions. This helps them learn and stay active.
+- **Push Notifications**: Sends a daily alert. It reminds users when a new quiz is ready.
+- **User Authentication**: Lets users sign up or log in. It uses a clean, full-screen design.
+
+***
+
+## Website Improvements
+
+- **Application Wizard**: Made the application process a three-step guide with a progress bar.
+- **Form Validation**: Added real-time checks to the form using Zod to prevent errors.
+- **CRM Integration**: Connected the form to Freshworks CRM to receive applicant's responses.
+- **Automation Pipeline**: Set up an n8n workflow to help with shorlisting candidates resumes/CVs.
+- **Responsive Design**: The website works well on all devices. It is mobile-friendly.
+
+***
 
 ## Technologies Used
 
+### Mobile App
+
+- **Framework**: Expo
+- **Backend**: Supabase
+- **Database**: PostgreSQL (via Supabase)
+
+### Website
+
 - **Frontend**: Next.js, Tailwind CSS
-- **Form Handling**: Zod validation
+- **Form Handling**: Zod
 - **CRM**: Freshworks API
-- **Automation**: n8n workflow engine
+- **Automation**: n8n
+
+***
 
 ## Challenges and Learnings
 
-1. **Complex Form Validation**
-   - Implemented Zod schemas for multi-step form validation
-   - Maintained state persistence between wizard steps
+1.  **Mobile App Development**
+    - Worked with mobile app development for the first time.
 
-2. **CRM Integration**
-   - Mapped form data to Freshworks CRM fields
-   - Handled API rate limiting and error cases
+2.  **Responsive Layouts**
+    - Making sure that the apply form looked good on all screen size was tedious.
 
-3. **Workflow Automation**
-   - Designed n8n workflows for candidate processing
-   - Integrated resume parsing logic
-
-4. **Responsive Challenges**
-   - Created adaptive layouts for complex form elements
-   - Optimized touch targets for mobile users
+***
 
 ## Outcome
 
-- Streamlined application process with clear progress tracking
-- Mobile-friendly experience for on-the-go applicants
-- Automated candidate evaluation pipeline
-- Robust form validation reducing submission errors
+- The mobile app promotes daily engagement.
+- The website's application process is now easier to use.
+- The applicant shorlisting process is automated.
+- The form has zero submission errors.
 
-[Live Application Portal](https://www.gradaccelerate.com/apply)
+[GradAccelerate Website](https://www.gradaccelerate.com)

@@ -49,7 +49,6 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
-        console.log('Auth state changed:', event, session?.user?.id);
         setUser(session?.user ?? null);
         
         // If user just signed in, try to post pending comment
