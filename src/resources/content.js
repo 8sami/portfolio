@@ -17,7 +17,7 @@ const person = {
 
 const newsletter = {
   display: false,
-  title: <>Subscribe for accidental knowledge drops</>,
+  title: <>Subscribe for random emails</>,
   description: (
     <>
      I might email you someday (if it's important)

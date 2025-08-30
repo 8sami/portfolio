@@ -95,8 +95,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log("Creating comment for user:", user.id, "Content:", content);
-
     // First, ensure the user exists in the users table
     const { data: existingUser, error: userError } = await supabase
       .from('users')
@@ -114,7 +112,6 @@ export async function POST(request: NextRequest) {
 
     // If user doesn't exist, create them
     if (!existingUser) {
-      console.log("Creating user record for:", user.id);
       const { error: insertUserError } = await supabase
         .from('users')
         .insert({
@@ -161,7 +158,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log("Comment created successfully:", newComment);
     return NextResponse.json(newComment);
   } catch (error) {
     console.error("Error creating comment:", error);
