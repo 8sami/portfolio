@@ -139,38 +139,37 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
         }}
       />
       
-      <Column fillWidth paddingY="24" gap="l">
-        {/* Header */}
-        <Column maxWidth="s">
-          <Heading variant="display-strong-l">
-            {guestbook.title}
-          </Heading>
-          <Text variant="heading-default-xl" onBackground="neutral-weak">
-            {guestbook.description}
-          </Text>
-        </Column>
+      {/* Header */}
+      <Column fillWidth>
+        <Heading variant="display-strong-l">
+          {guestbook.title}
+        </Heading>
+        <Text variant="heading-default-xl" onBackground="neutral-weak">
+          {guestbook.description}
+        </Text>
+      </Column>
 
-        {/* Comments Section */}
-        <Column fillWidth gap="s">
-          <Heading as="h2" variant="display-strong-xs">
-            Comments
-          </Heading>
-          {isLoading ? (
-            <Flex fillWidth paddingY="64" horizontal="center">
-              <Spinner />
-            </Flex>
-          ) : (
-            <CommentList comments={comments} />
-          )}
-        </Column>
 
-        {/* Comment Form - Always visible */}
-        <Column fillWidth gap="m">
-          <Heading as="h2" variant="display-strong-xs">
-            Leave a comment
-          </Heading>
-          <CommentForm onSubmit={handleSubmitComment} isLoading={isLoading} />
-        </Column>
+      {/* Comment Form - Always visible */}
+      <Column fillWidth gap="m">
+        <Heading as="h2" variant="display-strong-xs">
+          Leave a comment
+        </Heading>
+        <CommentForm onSubmit={handleSubmitComment} isLoading={isLoading} />
+      </Column>
+
+      {/* Comments Section */}
+      <Column fillWidth gap="s">
+        <Heading as="h2" variant="display-strong-xs">
+          Comments
+        </Heading>
+        {isLoading ? (
+          <Flex fillWidth paddingY="64" horizontal="center">
+            <Spinner />
+          </Flex>
+        ) : (
+          <CommentList comments={comments} />
+        )}
       </Column>
 
       {/* Sign-in Modal */}
