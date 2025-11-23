@@ -13,9 +13,12 @@ export async function generateMetadata() {
 }
 
 async function fetchComments() {
-  // Fetch comments from the API route on the server
+  // Use the local API route for fetching
   const res = await fetch(`${baseURL}/api/comments`, { cache: "no-store" });
-  if (!res.ok) return [];
+  if (!res.ok) {
+    console.error("Failed to fetch initial comments from API route");
+    return [];
+  }
   return res.json();
 }
 

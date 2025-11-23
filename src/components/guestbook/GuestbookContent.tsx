@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Flex, Heading, Schema, Column, Button, Text, Icon, Dialog, Spinner } from "@once-ui-system/core";
 import { baseURL, guestbook, person } from "@/resources";
 import { CommentForm } from "@/components/CommentForm";
 import { CommentList } from "@/components/CommentList";
 import { supabase } from "@/lib/supabase";
-import useSWR from 'swr';
 
 interface Comment {
   id: string;
@@ -24,21 +23,38 @@ interface GuestbookContentProps {
   initialComments?: Comment[];
 }
 
-const fetcher = (url: string) => fetch(url).then(res => res.json());
-
 export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComments = [] }) => {
   const [user, setUser] = useState<any>(null);
+  const [comments, setComments] = useState<Comment[]>(initialComments);
+  const [isLoading, setIsLoading] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
-  const { data: comments = [], isLoading, mutate } = useSWR<Comment[]>(
-    '/api/comments',
-    fetcher,
-    { fallbackData: initialComments }
-  );
+  // Function to fetch comments
+  const fetchComments = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch('/api/comments');
+      if (response.ok) {
+        const data: Comment[] = await response.json();
+        setComments(data);
+      } else {
+        console.error("Failed to fetch comments");
+      }
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
-  // Handle authentication state
+  // Handle authentication state and initial fetch
   useEffect(() => {
+    // Set initial comments if not already set by fallback
+    if (comments.length === 0 && initialComments.length > 0) {
+        setComments(initialComments);
+    }
+
     // Get initial session
     const getSession = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -62,16 +78,27 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
       }
     );
     
+    // Initial fetch might not be needed if initialComments is provided via SSR,
+    // but useful if the component mounts without server-side data or for refreshing.
+    if (initialComments.length === 0) {
+        fetchComments();
+    }
+    
     return () => subscription.unsubscribe();
-  }, []);
+  }, [initialComments, fetchComments]);
 
-  // Update handleSubmitComment to use mutate
+  // Update handleSubmitComment to manually update comments
   const handleSubmitComment = async (content: string) => {
     if (!user) {
       localStorage.setItem('pendingComment', content);
       setShowSignInModal(true);
       return;
     }
+
+    // Manually set loading for the form submit button
+    // (A more robust solution would use a separate state for form submission)
+    const formWasLoading = isLoading;
+    setIsLoading(true);
 
     try {
       const { data: { session } } = await supabase.auth.getSession();
@@ -89,10 +116,9 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
       });
 
       if (response.ok) {
-        const newComment = await response.json();
-        // Optimistically update comments
-        mutate([newComment, ...comments], false);
-        return newComment;
+        // Fetch the updated list of comments after a successful post
+        await fetchComments(); 
+        return;
       } else {
         const errorData = await response.json();
         throw new Error(errorData.error || "Failed to post comment");
@@ -100,6 +126,10 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
     } catch (error) {
       console.error("Error posting comment:", error);
       throw error;
+    } finally {
+        if (!formWasLoading) {
+            setIsLoading(false);
+        }
     }
   };
 

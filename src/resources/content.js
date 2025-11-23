@@ -9,7 +9,7 @@ const person = {
   },
   role: "Software Developer",
   avatar: "/images/avatar.jpg",
-  email: "samikhan15262822@gmail.com",
+  email: "wotareudoing@gmail.com",
   current_location: "Sukkur, Pakistan",
   location: "Asia/Karachi",
   languages: ["English", "Urdu"],
@@ -83,7 +83,10 @@ const about = {
     title: "Introduction",
     description: (
       <>
-        Young, ambitious, and always curious. I'm a computer science student and software developer with a knack for both front-end and back-end. I love building products that make life easier, whether it's automating workflows or crafting seamless user experiences. I believe in learning by doing.
+        After messing around and learning different stuff, I have acquired hands‑on experience with both Python and JavaScript, particularly, NextJS,
+        ReactJS, Typescript, Django, Django Ninja, Flask and many more things that I won’t be able to fit here. I have a good understanding and experience
+        of version control and deployments and, not to forget, I have created many N8N automation flows and used AI for different use cases, worked with
+        Supabase, Strapi CMS, different UI libraries(Shadcn, Chakra, AntDesign etc.), also tried app development with Expo and didn’t like it
       </>
     ),
   },
