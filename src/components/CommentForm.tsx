@@ -5,10 +5,9 @@ import { Button, Input } from "@once-ui-system/core";
 
 interface CommentFormProps {
   onSubmit: (content: string) => Promise<void>;
-  isLoading?: boolean;
 }
 
-export const CommentForm: React.FC<CommentFormProps> = ({ onSubmit, isLoading = false }) => {
+export const CommentForm: React.FC<CommentFormProps> = ({ onSubmit }) => {
   const [content, setContent] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -34,11 +33,11 @@ export const CommentForm: React.FC<CommentFormProps> = ({ onSubmit, isLoading = 
         placeholder="Share your thoughts..."
         value={content}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => setContent(event.target.value)}
-        disabled={isSubmitting || isLoading}
+        disabled={isSubmitting}
         hasSuffix={
           <Button
             type="submit"
-            disabled={!content.trim() || isSubmitting || isLoading}
+            disabled={!content.trim() || isSubmitting}
             loading={isSubmitting}
             size="s"
             variant="primary"

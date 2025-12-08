@@ -26,13 +26,11 @@ interface GuestbookContentProps {
 export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComments = [] }) => {
   const [user, setUser] = useState<any>(null);
   const [comments, setComments] = useState<Comment[]>(initialComments);
-  const [isLoading, setIsLoading] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
   // Function to fetch comments
   const fetchComments = useCallback(async () => {
-    setIsLoading(true);
     try {
       const response = await fetch('/api/comments');
       if (response.ok) {
@@ -43,8 +41,6 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
       }
     } catch (error) {
       console.error("Error fetching comments:", error);
-    } finally {
-      setIsLoading(false);
     }
   }, []);
 
@@ -52,7 +48,7 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
   useEffect(() => {
     // Set initial comments if not already set by fallback
     if (comments.length === 0 && initialComments.length > 0) {
-        setComments(initialComments);
+      setComments(initialComments);
     }
 
     // Get initial session
@@ -66,7 +62,7 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
         setUser(session?.user ?? null);
-        
+
         // If user just signed in, try to post pending comment
         if (event === 'SIGNED_IN' && session?.user) {
           const pending = localStorage.getItem('pendingComment');
@@ -77,13 +73,13 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
         }
       }
     );
-    
+
     // Initial fetch might not be needed if initialComments is provided via SSR,
     // but useful if the component mounts without server-side data or for refreshing.
     if (initialComments.length === 0) {
-        fetchComments();
+      fetchComments();
     }
-    
+
     return () => subscription.unsubscribe();
   }, [initialComments, fetchComments]);
 
@@ -94,11 +90,6 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
       setShowSignInModal(true);
       return;
     }
-
-    // Manually set loading for the form submit button
-    // (A more robust solution would use a separate state for form submission)
-    const formWasLoading = isLoading;
-    setIsLoading(true);
 
     try {
       const { data: { session } } = await supabase.auth.getSession();
@@ -117,7 +108,7 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
 
       if (response.ok) {
         // Fetch the updated list of comments after a successful post
-        await fetchComments(); 
+        await fetchComments();
         return;
       } else {
         const errorData = await response.json();
@@ -126,10 +117,6 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
     } catch (error) {
       console.error("Error posting comment:", error);
       throw error;
-    } finally {
-        if (!formWasLoading) {
-            setIsLoading(false);
-        }
     }
   };
 
@@ -168,7 +155,7 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
           image: `${baseURL}${person.avatar}`,
         }}
       />
-      
+
       {/* Header */}
       <Column fillWidth>
         <Heading variant="display-strong-l">
@@ -185,7 +172,7 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
         <Heading as="h2" variant="display-strong-xs">
           Leave a comment
         </Heading>
-        <CommentForm onSubmit={handleSubmitComment} isLoading={isLoading} />
+        <CommentForm onSubmit={handleSubmitComment} />
       </Column>
 
       {/* Comments Section */}
@@ -193,13 +180,7 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
         <Heading as="h2" variant="display-strong-xs">
           Comments
         </Heading>
-        {isLoading ? (
-          <Flex fillWidth paddingY="64" horizontal="center">
-            <Spinner />
-          </Flex>
-        ) : (
-          <CommentList comments={comments} />
-        )}
+        <CommentList comments={comments} />
       </Column>
 
       {/* Sign-in Modal */}
@@ -226,7 +207,7 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
               fillWidth
               loading={isAuthenticating}
             >
-              <Icon name="google" size="s" marginRight="8"/>
+              <Icon name="google" size="s" marginRight="8" />
               Continue with Google
             </Button>
             <Button
@@ -235,7 +216,7 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
               fillWidth
               loading={isAuthenticating}
             >
-              <Icon name="github" size="s" marginRight="8"/>
+              <Icon name="github" size="s" marginRight="8" />
               Continue with GitHub
             </Button>
           </Flex>

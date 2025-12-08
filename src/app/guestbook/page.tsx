@@ -1,6 +1,8 @@
+import { Suspense } from "react";
 import { Meta } from "@once-ui-system/core";
 import { baseURL, guestbook } from "@/resources";
 import { GuestbookContent } from "@/components/guestbook/GuestbookContent";
+import Loading from "./loading";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -13,16 +15,33 @@ export async function generateMetadata() {
 }
 
 async function fetchComments() {
-  // Use the local API route for fetching
-  const res = await fetch(`${baseURL}/api/comments`, { cache: "no-store" });
-  if (!res.ok) {
-    console.error("Failed to fetch initial comments from API route");
+  try {
+    const res = await fetch(`${baseURL}/api/comments`, {
+      cache: "no-store"
+    });
+
+    if (!res.ok) {
+      console.error("Failed to fetch initial comments from API route");
+      return [];
+    }
+    return res.json();
+  } catch (error) {
+    console.error("Fetch error:", error);
     return [];
   }
-  return res.json();
 }
 
-export default async function Guestbook() {
+async function GuestbookData() {
   const comments = await fetchComments();
   return <GuestbookContent initialComments={comments} />;
+}
+
+export default function Guestbook() {
+  return (
+    <section>
+      <Suspense fallback={<Loading />}>
+        <GuestbookData />
+      </Suspense>
+    </section>
+  );
 }
