@@ -65,7 +65,7 @@ export const Header = () => {
         </Flex>
         <Flex fillWidth horizontal="center">
           <Flex
-            background="accent-strong"
+            background="accent-medium"
             border="brand-alpha-medium"
             radius="m-4"
             shadow="l"
