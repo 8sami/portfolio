@@ -9,7 +9,7 @@ const person = {
   },
   role: "Software Developer",
   avatar: "/images/avatar.jpg",
-  email: "wotareudoing@gmail.com",
+  email: "samiullahjavedd@gmail.com",
   current_location: "Sukkur, Pakistan",
   location: "Asia/Karachi",
   languages: ["English", "Urdu"],
@@ -20,7 +20,7 @@ const newsletter = {
   title: <>Subscribe for random emails</>,
   description: (
     <>
-     I might email you someday (if it's important)
+      I might email you someday (if it's important)
     </>
   ),
 };
@@ -57,7 +57,7 @@ const home = {
   },
   subline: (
     <>
-      Assalamualaikum👋, I'm Sami, a software developer at <ThemeLogo/>. I love making products that solve actual problems.
+      Assalamualaikum👋, I'm Sami, a software developer at <ThemeLogo />. I love making products that solve actual problems.
     </>
   ),
 };
@@ -142,8 +142,8 @@ const about = {
         name: "APWA Excellent World School Sukkur",
         description: <>
           Primary & High School (Apr. 2014 - Aug. 2024)
-          <br/>1st position in Annual Examination 2022
-          <br/>2nd position in Annual Examination 2020-21
+          <br />1st position in Annual Examination 2022
+          <br />2nd position in Annual Examination 2020-21
         </>,
       },
     ],
