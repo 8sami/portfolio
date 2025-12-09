@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
-import { Flex, Heading, Schema, Column, Button, Text, Icon, Dialog, Spinner } from "@once-ui-system/core";
+import React, { useState, useEffect, useRef } from "react";
+import { Flex, Heading, Schema, Column, Button, Text, Icon, Dialog, Toast } from "@once-ui-system/core";
 import { baseURL, guestbook, person } from "@/resources";
 import { CommentForm } from "@/components/CommentForm";
 import { CommentList } from "@/components/CommentList";
 import { supabase } from "@/lib/supabase";
+import { User } from "@supabase/supabase-js";
 
 interface Comment {
   id: string;
@@ -19,125 +20,108 @@ interface Comment {
   } | null;
 }
 
-interface GuestbookContentProps {
-  initialComments?: Comment[];
-}
-
-export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComments = [] }) => {
-  const [user, setUser] = useState<any>(null);
+export const GuestbookContent: React.FC<{ initialComments?: Comment[] }> = ({
+  initialComments = [],
+}) => {
+  const [user, setUser] = useState<User | null>(null);
   const [comments, setComments] = useState<Comment[]>(initialComments);
   const [showSignInModal, setShowSignInModal] = useState(false);
-  const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const [isPosting, setIsPosting] = useState(false);
+  const [errorToast, setErrorToast] = useState<string | null>(null);
+  const processingRef = useRef(false);
 
-  // Function to fetch comments
-  const fetchComments = useCallback(async () => {
+  const postComment = async (content: string, token: string) => {
+    setIsPosting(true);
     try {
-      const response = await fetch('/api/comments');
-      if (response.ok) {
-        const data: Comment[] = await response.json();
-        setComments(data);
-      } else {
-        console.error("Failed to fetch comments");
-      }
-    } catch (error) {
-      console.error("Error fetching comments:", error);
-    }
-  }, []);
-
-  // Handle authentication state and initial fetch
-  useEffect(() => {
-    // Set initial comments if not already set by fallback
-    if (comments.length === 0 && initialComments.length > 0) {
-      setComments(initialComments);
-    }
-
-    // Get initial session
-    const getSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      setUser(session?.user ?? null);
-    };
-    getSession();
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setUser(session?.user ?? null);
-
-        // If user just signed in, try to post pending comment
-        if (event === 'SIGNED_IN' && session?.user) {
-          const pending = localStorage.getItem('pendingComment');
-          if (pending) {
-            handleSubmitComment(pending);
-            localStorage.removeItem('pendingComment');
-          }
-        }
-      }
-    );
-
-    // Initial fetch might not be needed if initialComments is provided via SSR,
-    // but useful if the component mounts without server-side data or for refreshing.
-    if (initialComments.length === 0) {
-      fetchComments();
-    }
-
-    return () => subscription.unsubscribe();
-  }, [initialComments, fetchComments]);
-
-  // Update handleSubmitComment to manually update comments
-  const handleSubmitComment = async (content: string) => {
-    if (!user) {
-      localStorage.setItem('pendingComment', content);
-      setShowSignInModal(true);
-      return;
-    }
-
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session?.access_token) {
-        throw new Error("No access token");
-      }
-
       const response = await fetch("/api/comments", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${session.access_token}`,
+          "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify({ content }),
       });
 
       if (response.ok) {
-        // Fetch the updated list of comments after a successful post
-        await fetchComments();
-        return;
-      } else {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to post comment");
+        const refresh = await fetch("/api/comments");
+        const data = await refresh.json();
+        setComments(data);
+        return true;
       }
-    } catch (error) {
-      console.error("Error posting comment:", error);
-      throw error;
+      return false;
+    } catch (e) {
+      console.error(e);
+      return false;
+    } finally {
+      setIsPosting(false);
     }
   };
 
-  // Handle sign in
-  const handleSignIn = async (provider: 'google' | 'github') => {
-    try {
-      setIsAuthenticating(true);
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider,
-        options: {
-          redirectTo: `${window.location.origin}/guestbook`
-        }
-      });
-      if (error) {
-        console.error('Sign in error:', error);
+  useEffect(() => {
+    const handleSessionOnLoad = async () => {
+      if (processingRef.current) return;
+      processingRef.current = true;
+
+      const params = new URLSearchParams(window.location.hash.substring(1));
+      if (params.get("error")) {
+        setErrorToast("Sign in cancelled or failed.");
+        setUser(null);
+        return;
       }
-    } catch (error) {
-      console.error('Sign in error:', error);
-    } finally {
-      setIsAuthenticating(false);
+
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      setUser(session?.user ?? null);
+
+      if (session?.user) {
+        const pending = localStorage.getItem("pendingComment");
+        if (pending && session.access_token) {
+          const success = await postComment(pending, session.access_token);
+          if (success) {
+            localStorage.removeItem("pendingComment");
+            setShowSignInModal(false);
+          }
+        }
+      }
+    };
+
+    handleSessionOnLoad();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleSubmit = async (content: string) => {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (!session) {
+      localStorage.setItem("pendingComment", content);
+      setShowSignInModal(true);
+    } else {
+      await postComment(content, session.access_token);
     }
+  };
+
+  const handleSignIn = async (provider: "google" | "github") => {
+    await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: `${window.location.origin}/guestbook`
+      },
+    });
+  };
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
   };
 
   return (
@@ -156,6 +140,12 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
         }}
       />
 
+      {errorToast && (
+        <Toast variant="danger" onClose={() => setErrorToast(null)}>
+          {errorToast}
+        </Toast>
+      )}
+
       {/* Header */}
       <Column fillWidth>
         <Heading variant="display-strong-l">
@@ -169,10 +159,24 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
 
       {/* Comment Form - Always visible */}
       <Column fillWidth gap="m">
-        <Heading as="h2" variant="display-strong-xs">
-          Leave a comment
-        </Heading>
-        <CommentForm onSubmit={handleSubmitComment} />
+        <Flex vertical="center" fillWidth horizontal="space-between">
+          <Heading as="h2" variant="display-strong-xs">
+            Leave a comment
+          </Heading>
+          {user && (
+            <Button onClick={handleSignOut} variant="secondary" size="s">
+              Log out
+            </Button>
+          )}
+        </Flex>
+        <Column
+          style={{
+            opacity: isPosting ? 0.5 : 1,
+            pointerEvents: isPosting ? "none" : "auto",
+          }}
+        >
+          <CommentForm onSubmit={handleSubmit} />
+        </Column>
       </Column>
 
       {/* Comments Section */}
@@ -180,7 +184,7 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
         <Heading as="h2" variant="display-strong-xs">
           Comments
         </Heading>
-        <CommentList comments={comments} />
+        <CommentList comments={comments} isLoading={isPosting} />
       </Column>
 
       {/* Sign-in Modal */}
@@ -205,7 +209,6 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
               onClick={() => handleSignIn("google")}
               size="m"
               fillWidth
-              loading={isAuthenticating}
             >
               <Icon name="google" size="s" marginRight="8" />
               Continue with Google
@@ -214,7 +217,6 @@ export const GuestbookContent: React.FC<GuestbookContentProps> = ({ initialComme
               onClick={() => handleSignIn("github")}
               size="m"
               fillWidth
-              loading={isAuthenticating}
             >
               <Icon name="github" size="s" marginRight="8" />
               Continue with GitHub

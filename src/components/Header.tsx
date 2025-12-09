@@ -65,8 +65,8 @@ export const Header = () => {
         </Flex>
         <Flex fillWidth horizontal="center">
           <Flex
-            background="page"
-            border="neutral-alpha-weak"
+            background="brand-strong"
+            border="accent-alpha-medium"
             radius="m-4"
             shadow="l"
             padding="4"
@@ -75,7 +75,21 @@ export const Header = () => {
           >
             <Flex gap="4" vertical="center" textVariant="body-default-s" suppressHydrationWarning>
               {routes["/"] && (
-                <ToggleButton prefixIcon="home" href="/" selected={pathname === "/"} />
+              <>
+                <ToggleButton
+                  className="s-flex-hide"
+                  prefixIcon="home"
+                  href="/"
+                  selected={pathname === "/"}
+                />
+                <ToggleButton
+                  className="s-flex-show"
+                  size="l"
+                  prefixIcon="home"
+                  href="/"
+                  selected={pathname === "/"}
+                />
+              </>
               )}
               <Line background="neutral-alpha-medium" vert maxHeight="24" />
               {routes["/about"] && (
@@ -89,6 +103,7 @@ export const Header = () => {
                   />
                   <ToggleButton
                     className="s-flex-show"
+                    size="l"
                     prefixIcon="person"
                     href="/about"
                     selected={pathname === "/about"}
@@ -106,6 +121,7 @@ export const Header = () => {
                   />
                   <ToggleButton
                     className="s-flex-show"
+                    size="l"
                     prefixIcon="grid"
                     href="/work"
                     selected={pathname.startsWith("/work")}
@@ -123,6 +139,7 @@ export const Header = () => {
                   />
                   <ToggleButton
                     className="s-flex-show"
+                    size="l"
                     prefixIcon="book"
                     href="/blog"
                     selected={pathname.startsWith("/blog")}
@@ -140,6 +157,7 @@ export const Header = () => {
                   />
                   <ToggleButton
                     className="s-flex-show"
+                    size="l"
                     prefixIcon="pen"
                     href="/guestbook"
                     selected={pathname.startsWith("/guestbook")}
@@ -157,6 +175,7 @@ export const Header = () => {
                   />
                   <ToggleButton
                     className="s-flex-show"
+                    size="l"
                     prefixIcon="gallery"
                     href="/gallery"
                     selected={pathname.startsWith("/gallery")}

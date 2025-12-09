@@ -17,9 +17,51 @@ interface Comment {
 
 interface CommentListProps {
   comments: Comment[];
+  isLoading?: boolean;
 }
 
-export const CommentList: React.FC<CommentListProps> = ({ comments }) => {
+const SkeletonBox: React.FC<{
+  width?: string;
+  height?: string;
+  borderRadius?: string;
+}> = ({ width = "100%", height = "16px", borderRadius = "4px" }) => (
+  <div
+    style={{
+      width,
+      height,
+      borderRadius,
+      background: "linear-gradient(90deg, var(--neutral-alpha-weak) 25%, var(--neutral-alpha-medium) 50%, var(--neutral-alpha-weak) 75%)",
+      backgroundSize: "200% 100%",
+      animation: "shimmer 3.5s infinite ease-in-out",
+    }}
+  />
+);
+
+const CommentSkeleton: React.FC = () => (
+  <Flex
+    direction="column"
+    gap="xs"
+    padding="s"
+    radius="m"
+    background="surface"
+    border="neutral-alpha-weak"
+    fillWidth
+  >
+    <Flex horizontal="space-between" vertical="center">
+      <Flex direction="row" vertical="center" gap="xs">
+        <SkeletonBox width="24px" height="24px" borderRadius="50%" />
+        <SkeletonBox width="100px" height="14px" borderRadius="4px" />
+      </Flex>
+      <SkeletonBox width="80px" height="12px" borderRadius="4px" />
+    </Flex>
+    <Flex direction="column" gap="4" fillWidth>
+      <SkeletonBox width="100%" height="16px" borderRadius="4px" />
+      <SkeletonBox width="75%" height="16px" borderRadius="4px" />
+    </Flex>
+  </Flex>
+);
+
+export const CommentList: React.FC<CommentListProps> = ({ comments, isLoading }) => {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
@@ -32,8 +74,18 @@ export const CommentList: React.FC<CommentListProps> = ({ comments }) => {
   };
 
   return (
+    <>
+    <style>
+      {`
+        @keyframes shimmer {
+          0% { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
+        }
+      `}
+    </style>
     <Flex direction="column" gap="xs" fillWidth>
-      {comments.length === 0 ? (
+      {isLoading && <CommentSkeleton />}
+      {comments.length === 0 && !isLoading ? (
         <Text variant="body-default-m" onBackground="neutral-weak">
           No comments yet. Be the first to leave a message!
         </Text>
@@ -69,5 +121,6 @@ export const CommentList: React.FC<CommentListProps> = ({ comments }) => {
         ))
       )}
     </Flex>
+  </>
   );
 }; 
