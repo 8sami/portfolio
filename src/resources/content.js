@@ -34,7 +34,7 @@ const social = [
   {
     name: "LinkedIn",
     icon: "linkedin",
-    link: "https://www.linkedin.com/in/sam1-khan",
+    link: "https://www.linkedin.com/in/samiullahjaved",
   },
   {
     name: "Email",
@@ -53,7 +53,7 @@ const home = {
   featured: {
     display: true,
     title: <>Let's connect!</>,
-    href: "https://www.linkedin.com/in/sam1-khan", // Update with actual project link if available
+    href: "https://www.linkedin.com/in/samiullahjaved", // Update with actual project link if available
   },
   subline: (
     <>
