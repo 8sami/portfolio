@@ -7,7 +7,7 @@ const person = {
   get name() {
     return `${this.firstName}${this.middleName} ${this.lastName}`;
   },
-  role: "Software Developer",
+  role: "Software Developer & Future Founder",
   avatar: "/images/avatar.jpg",
   email: "samiullahjavedd@gmail.com",
   current_location: "Sukkur, Pakistan",
@@ -99,8 +99,10 @@ const about = {
         timeframe: "Jul. 2025 - Present",
         role: "Software Developer",
         achievements: [
-          <>Maintaining and implementing new features in existing projects.</>,
-          <>Developing full-stack web applications for clients with the help of AI.</>,
+          <>Built a plug-and-play checkout for Swell stores using Cloudflare KV, Easyblocks, and NextJS, featuring a no-code editor for UI customisation.</>,
+          <>Optimised the core checkout logic from 3 steps to 1, reducing friction and increasing completion rates by approximately 35%.</>,
+          <>Delivered 6+ client projects end-to-end, managing design, backend, frontend implementation, and deployment.</>,
+          <>Mentored an intern through code reviews and task delegation to ensure timely and effective task completion.</>,
         ],
         images: [],
       },
@@ -109,22 +111,19 @@ const about = {
         timeframe: "Mar. 2025 - Jun. 2025",
         role: "Developer Intern",
         achievements: [
-          <>Contributed to projects from requirements gathering to deployment.</>,
-          <>Developed and maintained full-stack applications using Next.js, React, Refine, Supabase, and Strapi CMS.</>,
-          <>Built n8n automation workflows for data extraction, processing, and business operations.</>,
-          <>Implemented e-commerce features including Stripe integration, authentication, and checkout flows.</>,
-          <>Successfully delivered multiple projects independently under supervision.</>,
+          <>Reworked a legacy website with a modern, sleek design, improving SEO and UX, which directly increased organic traffic, sales leads and decreased paint time from 172 ms to 30 ms.</>,
+          <>Standardised AI usage by creating a database of specialised prompts, reducing API token costs by 30%, and ensuring code consistency.</>,
+          <>Automated marketing workflows using N8N and Slack, saving the team 10+ hours of manual work weekly.</>,
         ],
         images: [],
       },
       {
         company: "Samiullah Arif Enterprises (SAE)",
-        timeframe: "Nov. 2024 - Present",
-        role: "Freelance Developer",
+        timeframe: "Nov. 2024 - Apr. 2025",
+        role: "Full-stack Freelance Developer",
         achievements: [
-          <>Developing a full-stack invoice generator web app for a procurement service provider, streamlining their billing process.</>,
-          <>Built the backend using Django and Django Ninja for REST API endpoints, ensuring scalability and maintainability.</>,
-          <>Designing the frontend with Next.js, TypeScript, and Shadcn UI for a responsive, user-friendly interface.</>,
+          <>Built a custom invoicing system using Django Ninja and NextJS that had processed over 20,000,000 PKR in transactions.</>,
+          <>Iterated on the product based on real-time client feedback to handle different scenarios and 4+ new feature requests.</>,
         ],
         images: [],
       },
@@ -136,7 +135,7 @@ const about = {
     institutions: [
       {
         name: "Islamia Government Science College Sukkur",
-        description: <>Intermediate in Computer Science (Aug. 2024 - Present)</>,
+        description: <>Intermediate in Computer Science (Aug. 2024 - Expected 2026)</>,
       },
       {
         name: "APWA Excellent World School Sukkur",
@@ -148,44 +147,65 @@ const about = {
       },
     ],
   },
+  skills: {
+    display: true,
+    title: "Skills",
+    categories: [
+      {
+        name: "Languages",
+        items: ["JavaScript", "TypeScript", "Python", "C", "C++", "SQL", "PHP", "Elixir"],
+      },
+      {
+        name: "Databases",
+        items: ["PostgreSQL", "MySQL", "SQLite"],
+      },
+      {
+        name: "Frameworks",
+        items: ["NextJS", "ReactJS", "NodeJS", "Django", "Django Ninja", "Flask", "React Native", "Expo", "Laravel"],
+      },
+      {
+        name: "UI",
+        items: ["ShadcnUI", "ChakraUI", "MaterialUI", "OnceUI", "Ant Design", "Shopify Polaris"],
+      },
+      {
+        name: "Tools",
+        items: ["N8N", "Docker", "Supabase", "Redis", "Strapi", "Stripe", "Clerk", "Agno"],
+      },
+    ]
+  },
   technical: {
     display: true,
-    title: "Technical Skills & Certifications",
+    title: "Certifications",
     skills: [
-      {
-        title: "Next.js & React",
-        description: <>Building modern web apps with Next.js, React, Supabase, and Strapi CMS.</>,
-        images: [],
-      },
-      {
-        title: "Automation & n8n",
-        description: <>Workflow automation, data extraction, and business process automation using n8n.</>,
-        images: [],
-      },
       {
         title: "Python 3 Programming",
         description: <>Specialization in Python programming (University of Michigan, Aug. 2024)</>,
         images: [],
+        link: "https://www.coursera.org/account/accomplishments/specialization/QD9YGUEAT2P7",
       },
       {
         title: "Django for Everybody",
         description: <>Web application development with Django (University of Michigan, Oct. 2024)</>,
         images: [],
+        link: "https://www.coursera.org/account/accomplishments/specialization/RKJ9K8JLME9M",
       },
       {
         title: "SQL for Data Science",
         description: <>SQL fundamentals and data science applications (UC Davis, Mar. 2025)</>,
         images: [],
+        link: "https://www.coursera.org/account/accomplishments/verify/L2PNKKAY8YZH",
       },
       {
         title: "Version Control with Git",
         description: <>Git fundamentals and best practices (Atlassian, Aug. 2024)</>,
         images: [],
+        link: "https://www.coursera.org/account/accomplishments/verify/DQ6FW6GSKSJO",
       },
       {
         title: "CS50x",
         description: <>CS fundamentals and programming (Harvard University, Jun. 2024)</>,
         images: [],
+        link: "https://certificates.cs50.io/96c90c9d-1fb7-4699-85a0-ed932f005519.pdf?size=letter",
       },
     ],
   },

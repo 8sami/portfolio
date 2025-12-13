@@ -45,6 +45,11 @@ export default function About() {
       items: about.studies.institutions.map((institution) => institution.name),
     },
     {
+      title: about.skills.title,
+      display: about.skills.display,
+      items: about.skills.categories.map((category) => category.name),
+    },
+    {
       title: about.technical.title,
       display: about.technical.display,
       items: about.technical.skills.map((skill) => skill.title),
@@ -158,32 +163,32 @@ export default function About() {
                   variant="primary"
                   prefixIcon="download"
                   download
-                  >
+                >
                   Download Resume
                 </Button>
                 {social.map(
                   (item) =>
                     item.link && (
-                        <React.Fragment key={item.name}>
-                            <Button
-                                className="s-flex-hide"
-                                key={item.name}
-                                href={item.link}
-                                prefixIcon={item.icon}
-                                label={item.name}
-                                size="s"
-                                weight="default"
-                                variant="secondary"
-                            />
-                            <IconButton
-                                className="s-flex-show"
-                                size="l"
-                                key={`${item.name}-icon`}
-                                href={item.link}
-                                icon={item.icon}
-                                variant="secondary"
-                            />
-                        </React.Fragment>
+                      <React.Fragment key={item.name}>
+                        <Button
+                          className="s-flex-hide"
+                          key={item.name}
+                          href={item.link}
+                          prefixIcon={item.icon}
+                          label={item.name}
+                          size="s"
+                          weight="default"
+                          variant="secondary"
+                        />
+                        <IconButton
+                          className="s-flex-show"
+                          size="l"
+                          key={`${item.name}-icon`}
+                          href={item.link}
+                          icon={item.icon}
+                          variant="secondary"
+                        />
+                      </React.Fragment>
                     ),
                 )}
               </Flex>
@@ -284,43 +289,81 @@ export default function About() {
                 as="h2"
                 id={about.technical.title}
                 variant="display-strong-s"
-                marginBottom="40"
+                marginBottom="m"
               >
                 {about.technical.title}
               </Heading>
-              <Column fillWidth gap="l">
+              <Column fillWidth gap="l" marginBottom="40">
                 {about.technical.skills.map((skill, index) => (
                   <Column key={`${skill}-${index}`} fillWidth gap="4">
-                    <Text id={skill.title} variant="heading-strong-l">{skill.title}</Text>
+                    <Flex fillWidth horizontal="space-between" vertical="center">
+                      <Text id={skill.title} variant="heading-strong-l">{skill.title}</Text>
+                      {skill.link && (
+                        <Button
+                          size="s"
+                          variant="tertiary"
+                          href={skill.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          prefixIcon="openLink"
+                        />
+                      )}
+                    </Flex>
                     <Text variant="body-default-m" onBackground="neutral-weak">
                       {skill.description}
                     </Text>
-                    {skill.images && skill.images.length > 0 && (
-                      <Flex fillWidth paddingTop="m" gap="12" wrap>
-                        {skill.images.map((image, index) => (
-                          <Flex
-                            key={index}
-                            border="neutral-medium"
-                            radius="m"
-                            //@ts-ignore
-                            minWidth={image.width}
-                            //@ts-ignore
-                            height={image.height}
-                          >
-                            <Media
-                              enlarge
+                    {
+                      skill.images && skill.images.length > 0 && (
+                        <Flex fillWidth paddingTop="m" gap="12" wrap>
+                          {skill.images.map((image, index) => (
+                            <Flex
+                              key={index}
+                              border="neutral-medium"
                               radius="m"
                               //@ts-ignore
-                              sizes={image.width.toString()}
+                              minWidth={image.width}
                               //@ts-ignore
-                              alt={image.alt}
-                              //@ts-ignore
-                              src={image.src}
-                            />
-                          </Flex>
-                        ))}
-                      </Flex>
-                    )}
+                              height={image.height}
+                            >
+                              <Media
+                                enlarge
+                                radius="m"
+                                //@ts-ignore
+                                sizes={image.width.toString()}
+                                //@ts-ignore
+                                alt={image.alt}
+                                //@ts-ignore
+                                src={image.src}
+                              />
+                            </Flex>
+                          ))}
+                        </Flex>
+                      )
+                    }
+                  </Column>
+                ))}
+              </Column>
+            </>
+          )}
+
+          {about.skills && about.skills.display && (
+            <>
+              <Heading as="h2" id={about.skills.title} variant="display-strong-s" marginBottom="m">
+                {about.skills.title}
+              </Heading>
+              <Column fillWidth gap="l">
+                {about.skills.categories.map((category, index) => (
+                  <Column key={`${category.name}-${index}`} fillWidth gap="xs">
+                    <Text id={category.name} variant="heading-strong-l">
+                      {category.name}
+                    </Text>
+                    <Flex wrap gap="8">
+                      {category.items.map((item) => (
+                        <Tag variant="brand" key={item} size="l">
+                          {item}
+                        </Tag>
+                      ))}
+                    </Flex>
                   </Column>
                 ))}
               </Column>
